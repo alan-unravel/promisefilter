@@ -48,153 +48,326 @@ var opfilter = operative({
 	},
 	"dimension": function(index, accessor) {
 		var promise = this.deferred();
-		this.dimensions[this.dimensionIndex] = this.crossfilters[index].dimension(this.unpack(accessor));
-		var oldIndex = this.dimensionIndex;
-		this.dimensionIndex++;
-		promise.fulfill(oldIndex);
+    try{
+		  this.dimensions[this.dimensionIndex] = this.crossfilters[index].dimension(this.unpack(accessor));
+		  var oldIndex = this.dimensionIndex;
+		  this.dimensionIndex++;
+		  promise.fulfill(oldIndex);
+    } catch(e){
+      promise.reject(e.message);
+    }
 	},
 	"dimension.dispose": function(index) {
-		this.dimensions[index].dispose();
-		this.deferred().fulfill();
+    var promise = this.deferred();
+    try{
+		  this.dimensions[index].dispose();
+		  promise.fulfill();
+    } catch(e){
+      promise.reject(e.message);
+    }
 	},
 	"dimension.groupAll": function(index) {
-		this.dimensionGroupAlls[this.dimensionGroupAllIndex] = this.dimensions[index].groupAll();
-		var oldIndex = this.dimensionGroupAllIndex;
-		this.dimensionGroupAllIndex++;
-		this.deferred().fulfill(oldIndex);
+    var promise = this.deferred();
+    try{
+		  this.dimensionGroupAlls[this.dimensionGroupAllIndex] = this.dimensions[index].groupAll();
+		  var oldIndex = this.dimensionGroupAllIndex;
+		  this.dimensionGroupAllIndex++;
+		  promise.fulfill(oldIndex);
+    } catch(e){
+      promise.reject(e.message);
+    }
 	},
 	"dimension.groupAll.value": function(index) {
-		var value = this.dimensionGroupAlls[index].value();
-		this.deferred().fulfill(value);
+    var promise = this.deferred();
+    try{
+		  var value = this.dimensionGroupAlls[index].value();
+		  promise.fulfill(value);
+    } catch(e){
+      promise.reject(e.message);
+    }
 	},
 	"dimension.groupAll.reduceSum": function(index, accessor) {
-		this.dimensionGroupAlls[index].reduceSum(this.unpack(accessor));
-		this.deferred().fulfill();
+    var promise = this.deferred();
+    try{
+		  this.dimensionGroupAlls[index].reduceSum(this.unpack(accessor));
+		  promise.fulfill();
+    } catch(e){
+      promise.reject(e.message);
+    }
 	},
 	"dimension.groupAll.reduceCount": function(index) {
-		this.dimensionGroupAlls[index].reduceCount();
-		this.deferred().fulfill();
+    var promise = this.deferred();
+    try{
+		  this.dimensionGroupAlls[index].reduceCount();
+		  promise.fulfill();
+    } catch(e){
+      promise.reject(e.message);
+    }
 	},
 	"dimension.groupAll.reduce": function(index, add, remove,initial) {
-		this.dimensionGroupAlls[index].reduce(this.unpack(add), this.unpack(remove), this.unpack(initial));
-		this.deferred().fulfill();
+    var promise = this.deferred();
+    try{
+		  this.dimensionGroupAlls[index].reduce(this.unpack(add), this.unpack(remove), this.unpack(initial));
+		  promise.fulfill();
+    } catch(e){
+      promise.reject(e.message);
+    }
 	},
 	"dimension.groupAll.dispose": function(index) {
-		this.dimensionGroupAlls[index].dispose();
-		this.deferred().fulfill();
+    var promise = this.deferred();
+    try{
+		  this.dimensionGroupAlls[index].dispose();
+		  promise.fulfill();
+    } catch(e){
+      promise.reject(e.message);
+    }
 	},
 	"dimension.filterRange": function(index, range) {
-		this.dimensions[index].filterRange(range);
-		this.deferred().fulfill();
+    var promise = this.deferred();
+    try{
+		  this.dimensions[index].filterRange(range);
+		  promise.fulfill();
+    } catch(e){
+      promise.reject(e.message);
+    }
 	},
 	"dimension.filterExact": function(index, value) {
-		this.dimensions[index].filterExact(value);
-		this.deferred().fulfill();
+    var promise = this.deferred();
+    try{
+		  this.dimensions[index].filterExact(value);
+		  promise.fulfill();
+    } catch(e){
+      promise.reject(e.message);
+    }
 	},
 	"dimension.filterFunction": function(index, func) {
-		this.dimensions[index].filterFunction(this.unpack(func));
-		this.deferred().fulfill();
+    var promise = this.deferred();
+    try{
+		  this.dimensions[index].filterFunction(this.unpack(func));
+		  promise.fulfill();
+    } catch(e){
+      promise.reject(e.message);
+    }
 	},
 	"dimension.filterAll": function(index) {
-		this.dimensions[index].filterAll();
-		this.deferred().fulfill();
+    var promise = this.deferred();
+    try{
+		  this.dimensions[index].filterAll();
+		  promise.fulfill();
+    } catch(e){
+      promise.reject(e.message);
+    }
 	},
 	"dimension.filter": function(index, value) {
-		this.dimensions[index].filter(value);
-		this.deferred().fulfill();
+    var promise = this.deferred();
+    try{
+		  this.dimensions[index].filter(value);
+		  promise.fulfill();
+    } catch(e){
+      promise.reject(e.message);
+    }
 	},
 	"dimension.top": function(index, value) {
-		var top = this.dimensions[index].top(value);
-		this.deferred().fulfill(top);
+    var promise = this.deferred();
+    try{
+		  var top = this.dimensions[index].top(value);
+		  promise.fulfill(top);
+    } catch(e){
+      promise.reject(e.message);
+    }
 	},
 	"dimension.bottom": function(index, value) {
-		var bottom = this.dimensions[index].bottom(value);
-		this.deferred().fulfill(bottom);
+    var promise = this.deferred();
+    try{
+		  var bottom = this.dimensions[index].bottom(value);
+		  promise.fulfill(bottom);
+    } catch(e){
+      promise.reject(e.message);
+    }
 	},
 	"dimension.group": function(index, accessor) {
-		this.dimensionGroups[this.dimensionGroupIndex] = this.dimensions[index].group(this.unpack(accessor));
-		var oldIndex = this.dimensionGroupIndex;
-		this.dimensionGroupIndex++;
-		this.deferred().fulfill(oldIndex);
+    var promise = this.deferred();
+    try{
+		  this.dimensionGroups[this.dimensionGroupIndex] = this.dimensions[index].group(this.unpack(accessor));
+		  var oldIndex = this.dimensionGroupIndex;
+		  this.dimensionGroupIndex++;
+		  promise.fulfill(oldIndex);
+    } catch(e){
+      promise.reject(e.message);
+    }
 	},
 	"dimension.group.top": function(index, value) {
-		var top = this.dimensionGroups[index].top(value);
-		this.deferred().fulfill(top);
+    var promise = this.deferred();
+    try{
+		  var top = this.dimensionGroups[index].top(value);
+		  promise.fulfill(top);
+    } catch(e){
+      promise.reject(e.message);
+    }
 	},
 	"dimension.group.all": function(index) {
-		var all = this.dimensionGroups[index].all();
-		this.deferred().fulfill(all);
+    var promise = this.deferred();
+    try{
+		  var all = this.dimensionGroups[index].all();
+		  promise.fulfill(all);
+    } catch(e){
+      promise.reject(e.message);
+    }
 	},
 	"dimension.group.size": function(index) {
-		var size = this.dimensionGroups[index].size();
-		this.deferred().fulfill(size);	
+    var promise = this.deferred();
+    try{
+		  var size = this.dimensionGroups[index].size();
+		  promise.fulfill(size);	
+    } catch(e){
+      promise.reject(e.message);
+    }
 	},
 	"dimension.group.reduce": function(index, add, remove,initial) {
-		this.dimensionGroups[index].reduce(this.unpack(add), this.unpack(remove), this.unpack(initial));
-		this.deferred().fulfill();
+    var promise = this.deferred();
+    try{
+		  this.dimensionGroups[index].reduce(this.unpack(add), this.unpack(remove), this.unpack(initial));
+		  promise.fulfill();
+    } catch(e){
+      promise.reject(e.message);
+    }
 	},
 	"dimension.group.order": function(index, accessor) {
-		this.dimensionGroups[index].order(this.unpack(accessor));
-		this.deferred().fulfill();
+    var promise = this.deferred();
+    try{
+		  this.dimensionGroups[index].order(this.unpack(accessor));
+		  problem.fulfill();
+    } catch(e){
+      promise.reject(e.message);
+    }
 	},
 	"dimension.group.orderNatural": function(index) {
-		this.dimensionGroups[index].orderNatural();
-		this.deferred().fulfill();
+    var promise = this.deferred();
+    try{
+		  this.dimensionGroups[index].orderNatural();
+		  promise.fulfill();
+    } catch(e){
+      promise.reject(e.message);
+    }
 	},
 	"dimension.group.reduceSum": function(index, accessor) {
-		this.dimensionGroups[index].reduceSum(this.unpack(accessor));
-		this.deferred().fulfill();
+    var promise = this.deferred();
+    try{
+		  this.dimensionGroups[index].reduceSum(this.unpack(accessor));
+		  promise.fulfill();
+    } catch(e){
+      promise.reject();
+    }
 	},
 	"dimension.group.reduceCount": function(index) {
-		this.dimensionGroups[index].reduceCount();
-		this.deferred().fulfill();
+    var promise = this.deferred();
+    try{
+		  this.dimensionGroups[index].reduceCount();
+		  promise.fulfill();
+    } catch(e){
+      promise.reject(e.message);
+    }
 	},
 	"dimension.group.dispose": function(index) {
-		this.dimensionGroups[index].dispose();
-		this.deferred().fulfill();
+    var promise = this.deferred();
+    try{
+		  this.dimensionGroups[index].dispose();
+		  promise.fulfill();
+    } catch(e){
+      promise.reject(e.message);
+    }
 	},
 	"groupAll": function(index) {
 		var promise = this.deferred();
-		this.groupAlls[this.groupAllIndex] = this.crossfilters[index].groupAll();
-		var oldIndex = this.groupAllIndex;
-		this.groupAllIndex++;
-		promise.fulfill(oldIndex);
+    try{
+		  this.groupAlls[this.groupAllIndex] = this.crossfilters[index].groupAll();
+		  var oldIndex = this.groupAllIndex;
+		  this.groupAllIndex++;
+		  promise.fulfill(oldIndex);
+    } catch(e){
+      promise.reject(e.message);
+    }
 	},
 	"groupAll.value": function(index) {
-		var value = this.groupAlls[index].value();
-		this.deferred().fulfill(value);
+    var promise = this.deferred();
+    try{
+		  var value = this.groupAlls[index].value();
+		  promise.fulfill(value);
+    } catch(e){
+      promise.reject(e.message);
+    }
 	},
 	"groupAll.reduceSum": function(index, accessor) {
-		this.groupAlls[index].reduceSum(this.unpack(accessor));
-		this.deferred().fulfill();
+    var promise = this.deferred();
+    try{
+		  this.groupAlls[index].reduceSum(this.unpack(accessor));
+		  promise.fulfill();
+    } catch(e){
+      promise.reject(e.message);
+    }
 	},
 	"groupAll.reduceCount": function(index) {
-		this.groupAlls[index].reduceCount();
-		this.deferred().fulfill();
+    var promise = this.deferred();
+    try{
+		  this.groupAlls[index].reduceCount();
+		  promise.fulfill();
+    } catch(e){
+      promise.reject(e.message);
+    }
 	},
 	"groupAll.reduce": function(index, add, remove,initial) {
-		this.groupAlls[index].reduce(this.unpack(add), this.unpack(remove), this.unpack(initial));
-		this.deferred().fulfill();
+    var promise = this.deferred();
+    try{
+		  this.groupAlls[index].reduce(this.unpack(add), this.unpack(remove), this.unpack(initial));
+		  promise.fulfill();
+    } catch(e){
+      promise.reject(e.message);
+    }
 	},
 	"groupAll.dispose": function(index) {
-		this.groupAlls[index].dispose();
-		this.deferred().fulfill();
+    var promise = this.deferred();
+    try{
+		  this.groupAlls[index].dispose();
+		  promise.fulfill();
+    } catch(e){
+      promise.reject(e.message);
+    }
 	},
 	"add": function(index, data) {
-		this.crossfilters[index].add(data);
-		this.deferred().fulfill();
+    var promise = this.deferred();
+    try{
+		  this.crossfilters[index].add(data);
+		  promise.fulfill();
+    } catch(e){
+      promise.reject(e.message);
+    }
 	},
 	"size": function(index) {
-		var size = this.crossfilters[index].size();
-		this.deferred().fulfill(size);
+    var promise = this.deferred();
+    try{
+		  var size = this.crossfilters[index].size();
+		  promise.fulfill(size);
+    } catch(e){
+      promise.reject(e.message);
+    }
 	},
 	"all": function(index) {
-		var all = this.crossfilters[index].all();
-		this.deferred().fulfill(all);
+    var promise = this.deferred();
+    try{
+		  var all = this.crossfilters[index].all();
+		  promise.fulfill(all);
+    } catch(e){
+      promise.reject(e.message);
+    }
 	},
 	"remove": function(index) {
-		this.crossfilters[index].remove();
-		this.deferred().fulfill();
+    var promise = this.deferred();
+    try{
+		  this.crossfilters[index].remove();
+		  promise.fulfill();
+    } catch(e){
+      promise.reject(e.message);
+    }
 	}
 }, [cfUrl]);
 
@@ -260,7 +433,8 @@ var cfFacade = function(data) {
 						},
 						reduceSum: function(accessor) {
 							var p = Promise.all([dimGroupIndex, readSynchronizer, updateSynchronizer]).then(function(idx) { return opfilter["dimension.group.reduceSum"](idx[0], accessor.toString()); });
-							updateSynchronizer = Promise.all([updateSynchronizer, p]);
+              var newp = Promise.race([p.then(function(d){return d;}), p.catch(function(d){return false;})]);
+					    updateSynchronizer = Promise.all([updateSynchronizer, newp]);
 							return this;
 						},
 						reduceCount: function() {
