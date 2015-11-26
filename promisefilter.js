@@ -258,7 +258,7 @@ var opfilter = operative({
 		  this.dimensionGroups[index].reduceSum(this.unpack(accessor));
 		  promise.fulfill();
     } catch(e){
-      promise.reject();
+      promise.fulfill(e.message);
     }
 	},
 	"dimension.group.reduceCount": function(index) {
@@ -435,8 +435,12 @@ var cfFacade = function(data) {
 						},
 						reduceSum: function(accessor) {
 							var p = Promise.all([dimGroupIndex, readSynchronizer, updateSynchronizer]).then(function(idx) { return opfilter["dimension.group.reduceSum"](idx[0], accessor.toString()); });
-              var newp = Promise.race([p.then(function(d){return d;}), p.catch(function(d){return false;})]);
-					    updateSynchronizer = Promise.all([updateSynchronizer, newp]);
+              var resolver = p.catch(function(d){
+                return false;
+              }).then(function(d){
+                return d;
+              });
+							updateSynchronizer = Promise.all([updateSynchronizer, resolver]);
 							return this;
 						},
 						reduceCount: function() {
